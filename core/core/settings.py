@@ -32,6 +32,10 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [
 INSTALLED_APPS = [
     # my application
     'todo.apps.TodoConfig',
+    'accounts.apps.AccountsConfig',
+
+    # Third party apps.
+    'bootstrap4',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -123,3 +127,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGOUT_REDIRECT_URL = "/"

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+{% for task in tasks %}
+    <h3> {{task.Description}}</h3>
+{% endfor %}
+
+<div class="jumbotron">
+    <h1 class="display-3">Track your tasks.</h1>
+    <p class="lead">Make your own Check List, and keep a list of the
+    things you're going to do. Whenever you did one of them, you can tick it.</p>
+    <a class="btn btn-lg btn-primary" href="{% url 'accounts:register' %}"
+    role="button">Register &raquo;</a> 
+</div>
+{% endblock page_header %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+    <h1>Tasks</h1>
+{% endblock page_header %}
+
+{% block content %}
+    <p>
+        <a href="{% url 'todo:newtask' %}">Add a new task</a> 
+    </p>
+
+    {% for task in tasks %}
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ task.created_date|date:'M d, Y H:i' }}
+                <small>
+                    <a href="{% url 'todo:updatetask' task.pk %}">edit task</a> 
+                </small>
+            </h4>
+            <div class="card-body">
+            {{ task.Description|linebreaks }}
+            </div>
+            <div class="d-grid gap-4 text-center">
+                <a href="#" class="btn btn-success btn-lg" tabindex="-1" role="button" aria-disabled="true">Done</a>
+                <a href="{% url 'todo:deletetask' task.pk %}" class="btn btn-danger btn-lg" tabindex="-1" role="button" aria-disabled="true">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>There are no tasks for this topic yet.</p>
+    {% endfor %}
+{% endblock content %}
