@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, TemplateView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
+from django.views import View
+from django.urls import reverse_lazy
 from .models import Task
 from .forms import PostForm
 # Create your views here.
@@ -37,9 +39,13 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = '/tasklist/'
 
-@login_required
-def task_done_view(request, pk):
-    task = Task.objects.get(id=pk)
-    task.done = True
-    task.save()
-    return redirect('todo:tasklist')
+
+class TaskComplete(LoginRequiredMixin, View):
+    model = Task
+    success_url = "/tasklist/"
+
+    def get(self, request, *args, **kwargs):
+        object = Task.objects.get(id=kwargs.get("pk"))
+        object.done = True
+        object.save()
+        return redirect(self.success_url)
